@@ -1,15 +1,28 @@
 package comp3095.patriots.securepaymentprocessingsystem.service;
 
+import comp3095.patriots.securepaymentprocessingsystem.domain.Role;
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import comp3095.patriots.securepaymentprocessingsystem.repository.RoleRepository;
 import comp3095.patriots.securepaymentprocessingsystem.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
@@ -18,8 +31,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User saveClient(User user) {
-		user.getRoles().add(roleRepository.findByName("CLIENT"));
-
 		User returnedUserFromDb = userRepository.findByEmail(user.getEmail());
 
 		if (returnedUserFromDb != null) {
@@ -27,6 +38,31 @@ public class UserServiceImpl implements UserService {
 			System.out.println(returnedUserFromDb.getEmail());
 			return null;
 		}
+		user.getRoles().add(roleRepository.findByName("CLIENT"));
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+
 		return userRepository.save(user);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+		System.out.println("loadUderByUsername called");
+		System.out.println("param username: " + s);
+		User user = userRepository.findByEmail(s);
+
+
+		if (user == null) {
+			throw new UsernameNotFoundException("Invalid username and/or password");
+		}
+		System.out.println("findByEmail username: " + user.getEmail());
+		return new org.springframework.security.core.userdetails.User(
+				user.getEmail(),
+				user.getPassword(),
+				mapRolesToAuthorities(user.getRoles())
+		);
+	}
+
+	private Set<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
 	}
 }
