@@ -19,6 +19,15 @@
                 <li class="nav-item active">
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/}">Dashboard</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/future}">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/future}">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a CLASS="nav-link" sec:authorize="isAuthenticated()" th:href="@{/future}">Contact US</a>
+                </li>
             </ul>
             <span class="navbar-text mr-sm-2" sec:authorize="isAuthenticated()">
                     Welcome, <span class="nav-item" sec:authentication="principal.username"> User</span>

@@ -21,6 +21,9 @@ public class RegistrationController {
 
 	@GetMapping
 	public String getRegistrationForm(Model model) {
+		if (userService.isAuthenticated()) {
+			return "redirect:/";
+		}
 		model.addAttribute("user", new User());
 
 		return "registration";

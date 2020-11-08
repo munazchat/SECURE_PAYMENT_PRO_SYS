@@ -31,8 +31,8 @@ public class BootStrapData implements CommandLineRunner {
 		roleRepository.save(new Role("CLIENT"));
 
 		User admin = new User(
-				"Lasse", "Berantzino", "Jægerstræde 8",
-				"lasse@berantzino.dk", passwordEncoder.encode("password")
+				"admin", "user", "N/A",
+				"admin@isp.net", passwordEncoder.encode("P@ssword1")
 				//"lasseken.berantzino@georgebrown.ca"
 		);
 		admin.getRoles().add(new Role("ADMIN"));

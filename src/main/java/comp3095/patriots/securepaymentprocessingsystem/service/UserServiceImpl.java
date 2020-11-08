@@ -5,8 +5,11 @@ import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import comp3095.patriots.securepaymentprocessingsystem.repository.RoleRepository;
 import comp3095.patriots.securepaymentprocessingsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User saveClient(User user) {
+		user.setEmail(user.getEmail().toLowerCase());
 		User returnedUserFromDb = userRepository.findByEmail(user.getEmail());
 
 		if (returnedUserFromDb != null) {
@@ -38,10 +42,20 @@ public class UserServiceImpl implements UserService {
 			System.out.println(returnedUserFromDb.getEmail());
 			return null;
 		}
+
 		user.getRoles().add(roleRepository.findByName("CLIENT"));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		return userRepository.save(user);
+	}
+
+	@Override
+	public boolean isAuthenticated() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth == null || AnonymousAuthenticationToken.class.isAssignableFrom(auth.getClass())) {
+			return false;
+		}
+		return auth.isAuthenticated();
 	}
 
 	@Override
