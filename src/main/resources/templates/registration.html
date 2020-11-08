@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3 text-center">
+            <h1>REGISTRATION PAGE</h1>
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    You have successfully registered to our awesome app!
+                </div>
+            </div>
+
+            <!-- error message -->
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    Client with that email already exists.
+                </div>
+            </div>
+
+            <form th:action="@{/register}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label class="control-label" for="firstName">
+                        Firstname
+                    </label>
+                    <input id="firstName" class="form-control" th:field="*{firstName}" required="required" autofocus="autofocus"
+                           onkeypress="return /[a-z]/i.test(event.key)"
+                           pattern="^[A-Za-z]+$"
+                           oninvalid="setCustomValidity('Firstname may only contain alphabetical characters')"
+                           oninput="setCustomValidity('')">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="lastName">
+                        Lastname
+                    </label>
+                    <input id="lastName" class="form-control" th:field="*{lastName}" required="required" autofocus="autofocus"
+                           onkeypress="return /[a-z]/i.test(event.key)"
+                           pattern="^[A-Za-z]+$"
+                           oninvalid="setCustomValidity('Lastname may only contain alphabetical characters')"
+                           oninput="setCustomValidity('')">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="address">
+                        Address
+                    </label>
+                    <input id="address" class="form-control" th:field="*{address}" required="required" autofocus="autofocus">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="email">
+                        Email
+                    </label>
+                    <input id="email" class="form-control" type="email" th:field="*{email}" required="required" autofocus="autofocus">
+                    <p class="error-message" th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation error
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password">
+                        Password
+                    </label>
+                    <input id="password" class="form-control" type="password" th:field="*{password}" required="required"
+                           autofocus="autofocus" minlength="6" maxlength="12"
+                           pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$%^&+=]).*$"
+                           oninvalid="setCustomValidity('Password must be 6-12 characters in length and contain atleast 1 uppercase letter and 1 special character')"
+                           oninput="setCustomValidity('')">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered?
+                            <a href="/" th:href="@{/login}">Log in</a>
+                        </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
