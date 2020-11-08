@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Payment Processing System</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+    <div th:include="fragments/navbar :: nav_navbar"></div>
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3 text-center">
+
+                <h1>LOGIN</h1>
+                <form th:action="@{/login}" method="post">
+
+                    <!-- error message -->
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Invalid username and/or password.
+                        </div>
+                    </div>
+
+                    <!-- logout message -->
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-info">
+                            You have been logged out successfully.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="email" class="form-control" id="username" name="username"
+                               placeholder="Your email address goes here..." autofocus="autofocus">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="Your password goes here..." autofocus="autofocus">
+                    </div>
+
+                    <div class="form-check">
+                        <div>
+                            <input type="checkbox" class="form-check-input" required="required" id="checkbox">
+                            <label class="form-check-label" for="checkbox">I am not a robot</label>
+                        </div>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/RecaptchaLogo.svg/1200px-RecaptchaLogo.svg.png"
+                             class = "img-responsive" width="100px" height="100px"/>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6 offset-sm-3 text-center">
+                                <input type="submit" name="login-submit" id="login-submit"
+                                       class="form-control btn btn-primary" value="Log in">
+                            </div>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group">
+                        <span>New user?
+                            <a href="/" th:href="@{/register}">Sign up</a>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
