@@ -1,6 +1,7 @@
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
+import comp3095.patriots.securepaymentprocessingsystem.service.EmailService;
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RegistrationController {
 
 	private final UserService userService;
+	private final EmailService emailService;
 
-	public RegistrationController(UserService userService) {
+	public RegistrationController(UserService userService, EmailService emailService) {
 		this.userService = userService;
+		this.emailService = emailService;
 	}
 
 	@GetMapping
@@ -34,6 +37,7 @@ public class RegistrationController {
 		if (userService.saveClient(user) == null) {
 			return "redirect:/register?error";
 		}
+		emailService.sendVerificationEmail(user);
 		return "redirect:/register?success";
 	}
 }
