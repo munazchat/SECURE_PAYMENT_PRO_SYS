@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>FragmentStyle</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav th:fragment="nav_navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand">Payment Processing System</span>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/}">Dashboard</a>
+                </li>
+            </ul>
+            <span class="navbar-text mr-sm-2" sec:authorize="isAuthenticated()">
+                    Welcome, <span class="nav-item" sec:authentication="principal.username"> User</span>
+                </span>
+            <a class="btn btn-outline-danger my-2 my-sm-0" sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a>
+        </div>
+    </nav>
+</nav>
+</body>
+</html>
