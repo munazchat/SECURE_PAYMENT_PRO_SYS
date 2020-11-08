@@ -1,3 +1,14 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 2
+ * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
+ * Student Number: 101326867, 100956112, 101078278
+ * Date: 08/11/2020
+ * Description: Class for the User domain annotated as a db entity
+ * contains annotations for primary key and relationship with instructions of
+ * join table generation
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.domain;
 
 import javax.persistence.*;

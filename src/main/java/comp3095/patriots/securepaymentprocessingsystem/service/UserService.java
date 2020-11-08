@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 2
+ * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
+ * Student Number: 101326867, 100956112, 101078278
+ * Date: 08/11/2020
+ * Description: UserService interface that lists two methods to be implemented.
+ * extends UserDetailsService to Allow Spring Security login authentication
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.service;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;

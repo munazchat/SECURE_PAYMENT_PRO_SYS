@@ -1,3 +1,14 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 2
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 08/11/2020
+ * Description: Configuration class that configures authentication for users of
+ * the application and the requests that are allowed for authorized and
+ * unauthorized users. Also creates beans for password encoding.
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.config;
 
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
@@ -41,8 +52,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-//				.authorizeRequests().antMatchers("/").permitAll()
-//				.and()
 				.authorizeRequests().antMatchers("/console/**").permitAll()
 				.and()
 				.authorizeRequests().antMatchers(

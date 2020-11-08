@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 2
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 08/11/2020
+ * Description: BootStrapData class that makes use of CommandLineRunner interface,
+ * to add an admin user to the application
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.bootstrap;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.Role;

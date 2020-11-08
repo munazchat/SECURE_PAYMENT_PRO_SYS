@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 2
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 08/11/2020
+ * Description: Service class to allow sending of emails. Sends an email to the
+ * user that just registered for the app with their registration information
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.service;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
@@ -25,7 +35,6 @@ public class EmailService {
 						"You can now log in at: http://localhost:8080/login",
 						user.getFirstName(), user.getLastName(),
 						user.getFirstName(), user.getLastName(), user.getEmail()));
-		//String string = String.format("A String %s %2d", aStringVar, anIntVar);
 	}
 	private void sendEmail(String toEmailAddress, String subject, String text) {
 		System.out.println("sending email...");

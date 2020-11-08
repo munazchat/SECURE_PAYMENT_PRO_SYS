@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 2
+ * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
+ * Student Number: 101326867, 100956112, 101078278
+ * Date: 08/11/2020
+ * Description: Controller class that manages endpoint login at /login.
+ * redirects a user to the dashboard if they're authenticated
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
