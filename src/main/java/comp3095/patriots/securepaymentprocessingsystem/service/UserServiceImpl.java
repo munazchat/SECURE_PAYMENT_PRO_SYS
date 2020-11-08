@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User saveClient(User user) {
+		user.setEmail(user.getEmail().toLowerCase());
 		User returnedUserFromDb = userRepository.findByEmail(user.getEmail());
 
 		if (returnedUserFromDb != null) {
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 			System.out.println(returnedUserFromDb.getEmail());
 			return null;
 		}
+
 		user.getRoles().add(roleRepository.findByName("CLIENT"));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
