@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/tabs.css" />
+    <script src="/js/tabs.js"></script>
+</head>
+
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+
+<br>
+<div class="container">
+    <h1 class="text-center">User Listing</h1>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th> Ticket # </th>
+                            <th sec:authorize="hasAuthority('ADMIN')"> Username </th>
+                            <th> Date Added </th>
+                            <th> Subject </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${messages_received.isEmpty()}">
+                            <td colspan="2"> No Messages Available </td>
+                        </tr>
+                        <tr th:class="${!message.read} ? font-weight-bold" th:each="message : ${messages_received}">
+                            <td><span th:text="${message.id}"> Title </span></td>
+                            <td sec:authorize="hasAuthority('ADMIN')"><span th:text="${message.sender.email}"> Title </span></td>
+                            <td><span th:text="${message.dateAdded}"> Title </span></td>
+                            <td><span th:text="${message.subject}"> Title </span></td>
+                            <td >
+                                <div class="btn-group">
+                                    <a th:href="@{/inbox/message/{id}(id = ${message.id})}">
+                                        <button type="button" class="btn btn-success">Read</button>
+                                    </a>
+                                    <form method="POST" th:action="@{/inbox/remove/{id}(id = ${message.id})}">
+                                        <button class="btn btn-danger" type="submit" name="submit" value="value">Remove</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // open received messages by default
+    document.getElementById("defaultOpen").click();
+</script>
+</html>

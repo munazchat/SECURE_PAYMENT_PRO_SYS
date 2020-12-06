@@ -54,6 +54,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> findAllClients() {
+		return userRepository.findAllByRoles(roleRepository.findByName("CLIENT"));
+	}
+
+	@Override
 	public User getAuthenticatedUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("getAuthenticatedUser" + authentication.getName());

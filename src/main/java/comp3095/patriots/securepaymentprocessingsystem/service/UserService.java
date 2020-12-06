@@ -20,5 +20,6 @@ public interface UserService extends UserDetailsService {
 	boolean isAuthenticated();
 	User findByEmail(String email);
 	List<User> findAll();
+	List<User> findAllClients();
 	User getAuthenticatedUser();
 }
