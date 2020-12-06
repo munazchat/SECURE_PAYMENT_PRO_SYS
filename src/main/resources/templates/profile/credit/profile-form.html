@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Profile</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3 text-center">
+            <h1>Add/Update Credit Card</h1>
+
+            <form th:action="@{/credit-profile/update}" method="post" th:object="${card}">
+                <input hidden th:field="*{id}" />
+                <div class="form-group">
+                    <label for="cardType">Credit Card Type</label>
+                    <select required id="cardType" class="form-control" th:field="*{cardType}">
+                        <option th:each="typeOpt : ${T(comp3095.patriots.securepaymentprocessingsystem.domain.CardType).values()}"
+                                th:value="${typeOpt}" th:text="${typeOpt.name()}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expiry">Expiration date</label>
+                    <input required class="form-control" type="date" id="expiry" th:field="*{expirationDate}">
+                </div>
+                <div class="form-group">
+                    <label for="cardHolder">Card Holder Name</label>
+                    <input required class="form-control" id="cardHolder" th:field="*{cardHolder}">
+                </div>
+                <div class="form-group">
+                    <label for="ccn">Credit Card Number</label>
+                    <input required class="form-control" id="ccn" th:field="*{ccn}">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="defaultCheck" th:field="*{defaultCard}">
+                    <label class="form-check-label" for="defaultCheck">Save as Default Card</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Add/Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

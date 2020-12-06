@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Profile</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/tabs.css" />
+    <script src="/js/tabs.js"></script>
+</head>
+
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+
+<br>
+<div class="container">
+    <h1 class="text-center">Credit Information Profile</h1>
+    <br />
+    <!-- success message -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">
+            Your card has been saved.
+        </div>
+    </div>
+    <!-- deleted message -->
+    <div th:if="${param.deleted}">
+        <div class="alert alert-info">
+            Your card has been deleted.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <!-- Tab links -->
+                    <div class="tab">
+                        <button class="tablinks" id="defaultOpen" onclick="openMessageList(event, 'defaultCard')">Default Card</button>
+                        <button class="tablinks" onclick="openMessageList(event, 'allCards')">All Cards</button>
+                    </div>
+                    <!-- Tab content -->
+                    <div id="defaultCard" class="tabcontent">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr th:if="${defaultCard == null}">
+                                <td colspan="2"> You have no default credit card </td>
+                            </tr>
+                            <tr th:if="${defaultCard != null}">
+                                <td><span>Credit Card Type</span></td>
+                                <td><span th:text="${defaultCard.cardType.name()}"> Type </span></td>
+                            </tr>
+                            <tr th:if="${defaultCard != null}">
+                                <td><span>Expiration Date</span></td>
+                                <td><span th:text="${defaultCard.expirationDate}"></span></td>
+                            </tr>
+                            <tr th:if="${defaultCard != null}">
+                                <td><span>Card Holder Name</span></td>
+                                <td><span th:text="${defaultCard.cardHolder}"></span></td>
+                            </tr>
+                            <tr th:if="${defaultCard != null}">
+                                <td><span>Credit Card Number</span></td>
+                                <td><span th:text="${defaultCard.ccn}"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="allCards" class="tabcontent">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th> Type </th>
+                                <th> Expiry </th>
+                                <th> Card Holder </th>
+                                <th> Card Number </th>
+                                <th> Default </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${cards.isEmpty()}">
+                                <td colspan="2"> You have no credit cards </td>
+                            </tr>
+                            <tr th:each="card : ${cards}">
+                                <td><span th:text="${card.cardType}"> Type </span></td>
+                                <td><span th:text="${card.expirationDate}">Expiry</span></td>
+                                <td><span th:text="${card.cardHolder}"> Card Holder </span></td>
+                                <td><span th:text="${card.ccn}"> Title </span></td>
+                                <td><span th:text="${card.defaultCard} ? 'Yes' : 'No'"> Default Card </span></td>
+
+                                <td>
+                                    <div class="btn-group">
+                                        <a th:href="@{/credit-profile/update/{id}(id = ${card.id})}">
+                                            <button type="button" class="btn btn-success">Update</button>
+                                        </a>
+                                        <form method="POST" th:action="@{/credit-profile/remove/{id}(id = ${card.id})}">
+                                            <button class="btn btn-danger" type="submit" name="submit" value="value">Remove</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="container bg-light">
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center mt-3 mb-3">
+                        <a th:href="@{/credit-profile/add}">
+                            <button type="button" class="btn btn-success">Add Card</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // open received messages by default
+    document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>
