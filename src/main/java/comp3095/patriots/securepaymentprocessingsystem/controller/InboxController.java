@@ -70,7 +70,7 @@ public class InboxController {
 	@PostMapping("/message/reply")
 	public String replyToMessage(@ModelAttribute("reply") Message reply) {
 		System.out.println(reply.toString());
-		messageService.sendMessage(reply);
+		messageService.sendMessage(reply, userService.getAuthenticatedUser());
 
 		return String.format("redirect:/inbox?success");
 	}
