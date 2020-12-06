@@ -16,17 +16,23 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/future}">Features</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/profile}">My Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/future}">Pricing</a>
+                    <a CLASS="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a CLASS="nav-link" sec:authorize="isAuthenticated()" th:href="@{/future}">Contact US</a>
+                    <a class="nav-link" sec:authorize="hasAuthority('CLIENT')" th:href="@{/credit-profile}">Credit Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a CLASS="nav-link" sec:authorize="isAuthenticated()" th:href="@{/inbox}">Inbox</a>
+                </li>
+                <li class="nav-item">
+                    <a CLASS="nav-link" sec:authorize="isAuthenticated()" th:href="@{/support}">Support</a>
                 </li>
             </ul>
             <span class="navbar-text mr-sm-2" sec:authorize="isAuthenticated()">

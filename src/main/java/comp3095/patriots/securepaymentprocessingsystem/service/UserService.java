@@ -13,7 +13,12 @@ package comp3095.patriots.securepaymentprocessingsystem.service;
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 public interface UserService extends UserDetailsService {
 	User saveClient(User user);
 	boolean isAuthenticated();
+	User findByEmail(String email);
+	List<User> findAll();
+	User getAuthenticatedUser();
 }
