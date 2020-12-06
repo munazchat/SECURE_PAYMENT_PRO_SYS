@@ -30,6 +30,7 @@ public class User {
 	private String address;
 	private String email;
 	private String password;
+	private boolean upForDeletion = false;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -38,10 +39,10 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToMany(mappedBy = "receiver")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receiver")
 	private List<Message> messagesReceived = new ArrayList<>();
 
-	@OneToMany(mappedBy = "sender")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
 	private List<Message> messagesSent = new ArrayList<>();
 
 	public User() {
@@ -125,5 +126,26 @@ public class User {
 
 	public void setMessagesSent(List<Message> messagesSent) {
 		this.messagesSent = messagesSent;
+	}
+
+	public boolean isUpForDeletion() {
+		return upForDeletion;
+	}
+
+	public void setUpForDeletion(boolean upForDeletion) {
+		this.upForDeletion = upForDeletion;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", address='" + address + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", upForDeletion=" + upForDeletion +
+				'}';
 	}
 }

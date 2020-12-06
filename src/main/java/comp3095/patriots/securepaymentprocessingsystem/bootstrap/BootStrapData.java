@@ -84,10 +84,9 @@ public class BootStrapData implements CommandLineRunner {
 		Message msg3 = new Message("Subject", "Content", admin2, admin1);
 		Message msg4 = new Message("Subject", "Content", admin2, admin1);
 		Message msg5 = new Message("Subject", "Content", admin2, admin1);
-		Message msg6 = new Message("Subject", "Content", client1, client1);
 
 
-		messageRepository.saveAll(Arrays.asList(msg1, msg2, msg3, msg4, msg5, msg6));
+		messageRepository.saveAll(Arrays.asList(msg1, msg2, msg3, msg4, msg5));
 
 		System.out.println("Started in bootstrap...");
 		System.out.println("Number of Users: " + userRepository.count());

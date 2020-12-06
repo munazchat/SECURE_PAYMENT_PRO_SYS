@@ -9,11 +9,13 @@
 
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
-import comp3095.patriots.securepaymentprocessingsystem.domain.User;
+import comp3095.patriots.securepaymentprocessingsystem.dto.UserDeletionDto;
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -26,18 +28,34 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String dashboard() {
+
 		return "index";
 	}
 
 	@GetMapping("/future")
 	public String future() {
+
 		return "future";
 	}
 
 	@GetMapping("/users")
 	public String getUsers(Model model) {
-		model.addAttribute("users", userService.findAllClients());
+
+		UserDeletionDto usersForm = new UserDeletionDto(userService.findAll());
+
+		model.addAttribute("form", usersForm);
 
 		return "admin/users";
+	}
+
+	@PostMapping("/users")
+	public String deleteUsers(@ModelAttribute("form") UserDeletionDto form) {
+
+		boolean usersDeleted = userService.deleteUsers(form.getUsers());
+
+		if (!usersDeleted) {
+			return "redirect:/users?error";
+		}
+		return "redirect:/users";
 	}
 }

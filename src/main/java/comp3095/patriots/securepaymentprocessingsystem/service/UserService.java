@@ -22,4 +22,7 @@ public interface UserService extends UserDetailsService {
 	List<User> findAll();
 	List<User> findAllClients();
 	User getAuthenticatedUser();
+	boolean deleteUsers(List<User> users);
+	void transferMessagesToNewAdmin(User admin);
+	User getRandomAdmin();
 }
