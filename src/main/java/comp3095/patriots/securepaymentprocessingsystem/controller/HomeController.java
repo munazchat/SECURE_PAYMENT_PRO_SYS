@@ -38,6 +38,6 @@ public class HomeController {
 	public String getUsers(Model model) {
 		model.addAttribute("users", userService.findAllClients());
 
-		return "future";
+		return "admin/users";
 	}
 }
