@@ -45,6 +45,9 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
 	private List<Message> messagesSent = new ArrayList<>();
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<CreditCard> cards = new ArrayList<>();
+
 	public User() {
 	}
 
@@ -134,6 +137,18 @@ public class User {
 
 	public void setUpForDeletion(boolean upForDeletion) {
 		this.upForDeletion = upForDeletion;
+	}
+
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
+
+	public List<CreditCard> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<CreditCard> cards) {
+		this.cards = cards;
 	}
 
 	@Override
