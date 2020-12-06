@@ -22,22 +22,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Date;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
 
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
+	private final MessageRepository messageRepository;
 	private final UserService userService;
 	private final BCryptPasswordEncoder passwordEncoder;
 
 
-	public BootStrapData(UserRepository userRepository, RoleRepository roleRepository, UserService userService, BCryptPasswordEncoder passwordEncoder) {
+	public BootStrapData(UserRepository userRepository, RoleRepository roleRepository, UserService userService,
+	                     BCryptPasswordEncoder passwordEncoder, MessageRepository messageRepository) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
+		this.messageRepository = messageRepository;
 	}
 
 	@Override
@@ -49,7 +51,6 @@ public class BootStrapData implements CommandLineRunner {
 		User admin1 = new User(
 				"admin", "user", "N/A",
 				"admin@isp.net", passwordEncoder.encode("P@ssword1")
-				//""
 		);
 		User admin2 = new User(
 				"admin2", "user", "N/A",
@@ -77,6 +78,16 @@ public class BootStrapData implements CommandLineRunner {
 		// Save all users
 		userRepository.saveAll(Arrays.asList(admin1, admin2, client1, client2));
 
+
+		Message msg1 = new Message("Subject", "Content", admin2, admin1);
+		Message msg2 = new Message("Subject", "Content", admin2, admin1);
+		Message msg3 = new Message("Subject", "Content", admin2, admin1);
+		Message msg4 = new Message("Subject", "Content", admin2, admin1);
+		Message msg5 = new Message("Subject", "Content", admin2, admin1);
+		Message msg6 = new Message("Subject", "Content", client1, client1);
+
+
+		messageRepository.saveAll(Arrays.asList(msg1, msg2, msg3, msg4, msg5, msg6));
 
 		System.out.println("Started in bootstrap...");
 		System.out.println("Number of Users: " + userRepository.count());

@@ -38,6 +38,12 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@OneToMany(mappedBy = "receiver")
+	private List<Message> messagesReceived = new ArrayList<>();
+
+	@OneToMany(mappedBy = "sender")
+	private List<Message> messagesSent = new ArrayList<>();
+
 	public User() {
 	}
 
@@ -103,5 +109,21 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<Message> getMessagesReceived() {
+		return messagesReceived;
+	}
+
+	public void setMessagesReceived(List<Message> messagesReceived) {
+		this.messagesReceived = messagesReceived;
+	}
+
+	public List<Message> getMessagesSent() {
+		return messagesSent;
+	}
+
+	public void setMessagesSent(List<Message> messagesSent) {
+		this.messagesSent = messagesSent;
 	}
 }

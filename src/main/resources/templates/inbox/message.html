@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+<br>
+<div class="container">
+    <div>
+        <h1 class="text-center">Inbox</h1>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Message
+                    </div>
+                    <p th:text="${'ID: ' + message.id}"></p>
+                    <p th:text="${'Date Added: ' + message.dateAdded}"></p>
+                    <p th:text="${'Subject: ' + message.subject}"></p>
+                    <p th:text="${'Content: ' + message.content}"></p>
+                    <p th:text="${'Sender: ' + message.sender.email}"></p>
+                    <p th:text="${'Receiver: ' + message.receiver.email}"></p>
+                    <a th:if="${authenticatedUser.email != message.sender.email}" sec:authorize="hasAuthority('ADMIN')" th:href="@{/inbox/message/{id}/reply(id = ${message.id})}">
+                        <button type="button" class="btn btn-success">Reply</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

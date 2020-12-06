@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Support</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3 text-center">
+            <h1>Support</h1>
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    Support ticket has been submitted.
+                </div>
+            </div>
+
+            <form th:action="@{/support}" method="post" th:object="${ticket}">
+                <div class="form-group">
+                    <label class="control-label" for="subject">
+                        Subject
+                    </label>
+                    <input id="subject" class="form-control" th:field="*{subject}" required="required" autofocus="autofocus" maxlength="60">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="message">
+                        Message
+                    </label>
+                    <textarea id="message" class="form-control" th:field="*{content}" required="required"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
