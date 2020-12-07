@@ -1,6 +1,7 @@
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.CreditCard;
+import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import comp3095.patriots.securepaymentprocessingsystem.service.CreditCardService;
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,9 @@ public class CreditProfileController {
 
 	@GetMapping
 	public String creditProfile(Model model) {
-		model.addAttribute("cards", creditCardService.findAll());
-		model.addAttribute("defaultCard", creditCardService.getDefaultCard());
+		User authUser = userService.getAuthenticatedUser();
+		model.addAttribute("cards", creditCardService.findAllByUser(authUser));
+		model.addAttribute("defaultCard", creditCardService.getDefaultCard(authUser));
 
 		return "profile/credit/profile";
 	}
@@ -46,12 +48,14 @@ public class CreditProfileController {
 
 	@PostMapping("/update")
 	public String saveCreditProfile(@ModelAttribute("card") CreditCard card) {
-		CreditCard defaultCard = creditCardService.getDefaultCard();
+		User authUser = userService.getAuthenticatedUser();
+		CreditCard defaultCard = creditCardService.getDefaultCard(authUser);
 
 		if (defaultCard != null && card.isDefaultCard()) {
 			defaultCard.setDefaultCard(false);
 			creditCardService.save(defaultCard);
 		}
+		card.setUser(authUser);
 		creditCardService.save(card);
 
 		return "redirect:/credit-profile?success";

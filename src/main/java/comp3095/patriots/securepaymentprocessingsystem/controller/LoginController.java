@@ -26,7 +26,7 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String login() {
-		if (userService.isAuthenticated()) {
+		if (userService.getAuthenticatedUser() != null) {
 			return "redirect:/";
 		}
 		return "login";

@@ -1,6 +1,7 @@
 package comp3095.patriots.securepaymentprocessingsystem.service;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.CreditCard;
+import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import comp3095.patriots.securepaymentprocessingsystem.repository.CreditCardRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,19 @@ public class CreditCardService {
 		return creditCardRepository.findAll();
 	}
 
-	public CreditCard getDefaultCard() {
-		return creditCardRepository.findByDefaultCardEquals(true);
+	public List<CreditCard> findAllByUser(User user) {
+		return creditCardRepository.findAllByUser(user);
+	}
+
+	public CreditCard getDefaultCard(User user) {
+		CreditCard defaultCard = null;
+
+		for (CreditCard c : creditCardRepository.findAllByUser(user)) {
+			if (c.isDefaultCard()) {
+				defaultCard = c;
+			}
+		}
+		return defaultCard;
 	}
 
 	public CreditCard getOne(Long id) {

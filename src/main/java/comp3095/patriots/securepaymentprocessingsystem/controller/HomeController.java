@@ -9,6 +9,8 @@
 
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
+import comp3095.patriots.securepaymentprocessingsystem.domain.Profile;
+import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import comp3095.patriots.securepaymentprocessingsystem.dto.UserDeletionDto;
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,12 @@ public class HomeController {
 	public String getUsers(Model model) {
 
 		UserDeletionDto usersForm = new UserDeletionDto(userService.findAll());
+		for (User user : usersForm.getUsers()) {
+			System.out.println("PROFILES: " +user.getProfiles().size());
+			for (Profile p : user.getProfiles()) {
+				System.out.println("PROFILE: " + p.isCurrentProfile());
+			}
+		}
 
 		model.addAttribute("form", usersForm);
 

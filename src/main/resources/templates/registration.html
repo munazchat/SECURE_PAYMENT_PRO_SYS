@@ -31,56 +31,81 @@
                 </div>
             </div>
 
-            <form th:action="@{/register}" method="post" th:object="${user}">
-                <div class="form-group">
-                    <label class="control-label" for="firstName">
-                        Firstname
-                    </label>
-                    <input id="firstName" class="form-control" th:field="*{firstName}" required="required" autofocus="autofocus"
-                           onkeypress="return /[a-z]/i.test(event.key)"
-                           pattern="^[A-Za-z]+$"
-                           oninvalid="setCustomValidity('Firstname may only contain alphabetical characters')"
-                           oninput="setCustomValidity('')">
+            <form th:action="@{/register}" method="post" th:object="${form}">
+                <div class="row">
+                    <div class="col">
+                        <label class="control-label" for="firstName">
+                            Firstname
+                        </label>
+                        <input id="firstName" class="form-control" th:field="*{user.firstName}" required="required" autofocus="autofocus"
+                               onkeypress="return /[a-z]/i.test(event.key)"
+                               pattern="^[A-Za-z]+$"
+                               oninvalid="setCustomValidity('Firstname may only contain alphabetical characters')"
+                               oninput="setCustomValidity('')">
+                    </div>
+                    <div class="col">
+                        <label class="control-label" for="lastName">
+                            Lastname
+                        </label>
+                        <input id="lastName" class="form-control" th:field="*{user.lastName}" required="required"
+                               onkeypress="return /[a-z]/i.test(event.key)"
+                               pattern="^[A-Za-z]+$"
+                               oninvalid="setCustomValidity('Lastname may only contain alphabetical characters')"
+                               oninput="setCustomValidity('')">
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="lastName">
-                        Lastname
-                    </label>
-                    <input id="lastName" class="form-control" th:field="*{lastName}" required="required" autofocus="autofocus"
-                           onkeypress="return /[a-z]/i.test(event.key)"
-                           pattern="^[A-Za-z]+$"
-                           oninvalid="setCustomValidity('Lastname may only contain alphabetical characters')"
-                           oninput="setCustomValidity('')">
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="address">
-                        Address
-                    </label>
-                    <input id="address" class="form-control" th:field="*{address}" required="required" autofocus="autofocus">
-                </div>
-
                 <div class="form-group">
                     <label class="control-label" for="email">
                         Email
                     </label>
-                    <input id="email" class="form-control" type="email" th:field="*{email}" required="required" autofocus="autofocus">
-                    <p class="error-message" th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation error
-                    </p>
+                    <input id="email" class="form-control" type="email" th:field="*{user.email}" required="required">
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="password">
                         Password
                     </label>
-                    <input id="password" class="form-control" type="password" th:field="*{password}" required="required"
-                           autofocus="autofocus" minlength="6" maxlength="12"
+                    <input id="password" class="form-control" type="password" th:field="*{user.password}" required="required"
+                           minlength="6" maxlength="12"
                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[@!#$%^&+=]).*$"
                            oninvalid="setCustomValidity('Password must be 6-12 characters in length and contain atleast 1 uppercase letter and 1 special character')"
                            oninput="setCustomValidity('')">
                 </div>
-
+                <div class="form-group">
+                    <label for="expiry">Date of birth</label>
+                    <input required class="form-control" type="date" id="expiry" th:field="*{dateString}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="address">
+                        Address
+                    </label>
+                    <input id="address" class="form-control" th:field="*{profile.address}" required="required">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="control-label" for="city">
+                            City
+                        </label>
+                        <input id="city" class="form-control" th:field="*{profile.city}" required="required">
+                    </div>
+                    <div class="col">
+                        <label class="control-label" for="country">
+                            Country
+                        </label>
+                        <input id="country" class="form-control" th:field="*{profile.country}" required="required">
+                    </div>
+                </div>
+                <br />
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="billing" th:field="*{profile.defaultBilling}">
+                    <label class="form-check-label" for="billing">Default Billing Address</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="shipping" th:field="*{profile.defaultShipping}">
+                    <label class="form-check-label" for="shipping">Default Shipping Address</label>
+                </div>
+                <br />
+                <br />
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Register</button>
                     <span>Already registered?

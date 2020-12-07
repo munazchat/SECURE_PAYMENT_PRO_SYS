@@ -1,5 +1,6 @@
 package comp3095.patriots.securepaymentprocessingsystem.dto;
 
+import comp3095.patriots.securepaymentprocessingsystem.domain.Profile;
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 
 import java.util.ArrayList;
