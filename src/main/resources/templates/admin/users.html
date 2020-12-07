@@ -61,8 +61,16 @@
                                 <td><span th:text="*{users[__${itemStat.index}__].firstName}"></span></td>
                                 <td><span th:text="*{users[__${itemStat.index}__].roles.toArray()[0].name}"></span></td>
                                 <td><span th:text="*{users[__${itemStat.index}__].email}"></span></td>
-                                <td><span th:text="*{users[__${itemStat.index}__].address}"></span></td>
-                                <td><span>Inc</span></td>
+
+
+                                <th:block th:each="profile, stat1 : ${user.profiles}">
+                                    <th:block th:if="*{users[__${itemStat.index}__].profiles[__${stat1.index}__].currentProfile}">
+                                        <td >
+                                            <span th:text="*{users[__${itemStat.index}__].profiles[__${stat1.index}__].address}" ></span>
+                                        </td>
+                                    </th:block>
+                                </th:block>
+                                <td><span th:text="*{users[__${itemStat.index}__].registrationDate}"></span></td>
                             </tr>
                             </tbody>
                         </table>

@@ -11,11 +11,11 @@
 
 package comp3095.patriots.securepaymentprocessingsystem.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -27,10 +27,14 @@ public class User {
 
 	private String firstName;
 	private String lastName;
-	private String address;
 	private String email;
 	private String password;
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	private Date DOB;
+	private Date lastLogin;
+	private Date lastProfile = new Date();
 	private boolean upForDeletion = false;
+	private Date registrationDate = new Date();
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -48,15 +52,27 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<CreditCard> cards = new ArrayList<>();
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<Profile> profiles = new ArrayList<>();
+
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String address, String email, String password) {
+	public User(String firstName, String lastName, String email, String password, Date DOB) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
 		this.email = email;
 		this.password = password;
+		this.DOB = DOB;
+	}
+
+	public User(String firstName, String lastName, String email, String password, Date DOB, Profile profile) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.DOB = DOB;
+		this.profiles.add(profile);
 	}
 
 	public Long getId() {
@@ -83,14 +99,6 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -105,6 +113,38 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getDOB() {
+		return DOB;
+	}
+
+	public void setDOB(Date DOB) {
+		this.DOB = DOB;
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public Date getLastProfile() {
+		return lastProfile;
+	}
+
+	public void setLastProfile(Date lastProfile) {
+		this.lastProfile = lastProfile;
+	}
+
+	public boolean isUpForDeletion() {
+		return upForDeletion;
+	}
+
+	public void setUpForDeletion(boolean upForDeletion) {
+		this.upForDeletion = upForDeletion;
 	}
 
 	public Set<Role> getRoles() {
@@ -131,18 +171,6 @@ public class User {
 		this.messagesSent = messagesSent;
 	}
 
-	public boolean isUpForDeletion() {
-		return upForDeletion;
-	}
-
-	public void setUpForDeletion(boolean upForDeletion) {
-		this.upForDeletion = upForDeletion;
-	}
-
-	public String getFullName() {
-		return this.firstName + " " + this.lastName;
-	}
-
 	public List<CreditCard> getCards() {
 		return cards;
 	}
@@ -151,16 +179,40 @@ public class User {
 		this.cards = cards;
 	}
 
+	public List<Profile> getProfiles() {
+		return profiles;
+	}
+
+	public void setProfiles(List<Profile> profiles) {
+		this.profiles = profiles;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
 				"id=" + id +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
-				", address='" + address + '\'' +
 				", email='" + email + '\'' +
 				", password='" + password + '\'' +
+				", DOB=" + DOB +
+				", lastLogin=" + lastLogin +
+				", lastProfile=" + lastProfile +
 				", upForDeletion=" + upForDeletion +
+				", registrationDate=" + registrationDate +
 				'}';
 	}
 }

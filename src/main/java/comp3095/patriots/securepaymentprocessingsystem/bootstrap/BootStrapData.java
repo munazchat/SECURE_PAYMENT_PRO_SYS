@@ -11,15 +11,14 @@
 package comp3095.patriots.securepaymentprocessingsystem.bootstrap;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.*;
-import comp3095.patriots.securepaymentprocessingsystem.repository.CreditCardRepository;
-import comp3095.patriots.securepaymentprocessingsystem.repository.MessageRepository;
-import comp3095.patriots.securepaymentprocessingsystem.repository.RoleRepository;
-import comp3095.patriots.securepaymentprocessingsystem.repository.UserRepository;
+import comp3095.patriots.securepaymentprocessingsystem.repository.*;
 import comp3095.patriots.securepaymentprocessingsystem.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -30,17 +29,19 @@ public class BootStrapData implements CommandLineRunner {
 	private final RoleRepository roleRepository;
 	private final MessageRepository messageRepository;
 	private final CreditCardRepository creditCardRepository;
+	private final ProfileRepository profileRepository;
 	private final UserService userService;
 	private final BCryptPasswordEncoder passwordEncoder;
 
 
-	public BootStrapData(UserRepository userRepository, RoleRepository roleRepository,
-	                     MessageRepository messageRepository, CreditCardRepository creditCardRepository,
+	public BootStrapData(UserRepository userRepository, RoleRepository roleRepository, MessageRepository messageRepository,
+	                     CreditCardRepository creditCardRepository, ProfileRepository profileRepository,
 	                     UserService userService, BCryptPasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.messageRepository = messageRepository;
 		this.creditCardRepository = creditCardRepository;
+		this.profileRepository = profileRepository;
 		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -48,17 +49,18 @@ public class BootStrapData implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+
 		// Adds ADMIN role and admin users
 		Role adminRole = roleRepository.save(new Role("ADMIN"));
 
+		// User(String firstName, String lastName, String email, String password, Date DOB, Profile profile)
 		User admin1 = new User(
-				"admin", "user", "N/A",
-				"admin@isp.net", passwordEncoder.encode("P@ssword1")
-		);
-		User admin2 = new User(
-				"admin2", "user", "N/A",
-				"admin2@isp.net", passwordEncoder.encode("P@ssword1")
-		);
+				"admin", "user", "admin@isp.net", passwordEncoder.encode("P@ssword1"),
+				format.parse("12-17-1995"));
+		User admin2= new User(
+				"admin", "user2", "admin2@isp.net", passwordEncoder.encode("P@ssword1"),
+				format.parse("09-11-1965"));
 
 		admin1.getRoles().add(adminRole);
 		admin2.getRoles().add(adminRole);
@@ -67,19 +69,41 @@ public class BootStrapData implements CommandLineRunner {
 		Role clientRole = roleRepository.save(new Role("CLIENT"));
 
 		User client1 = new User(
-				"Lasse", "Berantzino", "Jægerstræde 8, 2690 Karlslunde, Denmark",
-				"lasseken.berantzino@georgebrown.ca", passwordEncoder.encode("P@ssword1")
-		);
+				"Lasse", "Berantzino", "lasseken.berantzino@georgebrown.ca",
+				passwordEncoder.encode("P@ssword1"), format.parse("12-28-1994"));
+
 		User client2 = new User(
-				"test", "user", "N/A",
-				"testuser@isp.net", passwordEncoder.encode("P@ssword1")
-		);
+				"test", "user", "testuser@isp.net",
+				passwordEncoder.encode("P@ssword1"), format.parse("08-08-1924"));
 
 		client1.getRoles().add(clientRole);
 		client2.getRoles().add(clientRole);
 
+		//admin profiles
+		Profile admin1Profile = new Profile(
+				"Jægerstræde 8", "Karlslunde", "Denmark", false, false, true);
+		Profile admin2Profile = new Profile(
+				"Rådhuspladsen 10", "Copenhagen", "Denmark", false, false, true);
+		admin1Profile.setUser(admin1);
+		admin2Profile.setUser(admin2);
+
+		// client profiles
+		Profile client1Profile1 = new Profile(
+				"Jægerstræde 8", "Karlslunde", "Denmark", true, false, true);
+		Profile client1Profile2 = new Profile(
+				"Rådhuspladsen 10", "Copenhagen", "Denmark", false, true, false);
+		Profile client2Profile1 = new Profile(
+				"Rådhuspladsen 10", "Copenhagen", "Denmark", true, true, true);
+		client1Profile1.setUser(client1);
+		client1Profile2.setUser(client1);
+		client2Profile1.setUser(client2);
+
+
 		// Save all users
 		userRepository.saveAll(Arrays.asList(admin1, admin2, client1, client2));
+
+		// Save all profiles
+		profileRepository.saveAll(Arrays.asList(admin1Profile, admin2Profile, client1Profile1, client1Profile2, client2Profile1));
 
 		// create and save messages
 		Message msg1 = new Message("Subject", "Content", admin2, admin1);

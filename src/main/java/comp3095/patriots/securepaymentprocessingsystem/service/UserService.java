@@ -17,7 +17,6 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 	User saveClient(User user);
-	boolean isAuthenticated();
 	User findByEmail(String email);
 	List<User> findAll();
 	List<User> findAllClients();

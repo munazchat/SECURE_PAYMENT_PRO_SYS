@@ -148,14 +148,6 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	@Override
-	public boolean isAuthenticated() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth == null || AnonymousAuthenticationToken.class.isAssignableFrom(auth.getClass())) {
-			return false;
-		}
-		return auth.isAuthenticated();
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
