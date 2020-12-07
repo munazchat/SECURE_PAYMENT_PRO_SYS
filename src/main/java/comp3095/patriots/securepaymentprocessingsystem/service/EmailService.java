@@ -1,9 +1,9 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
+ * Assignment: assignment 3
  * Author(s): Lasse Ken Berantzino
  * Student Number: 101326867
- * Date: 08/11/2020
+ * Date: 06/12/2020
  * Description: Service class to allow sending of emails. Sends an email to the
  * user that just registered for the app with their registration information
  **********************************************************************************/

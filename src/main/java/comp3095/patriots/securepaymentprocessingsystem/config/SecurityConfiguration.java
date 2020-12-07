@@ -1,9 +1,9 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
+ * Assignment: assignment 3
  * Author(s): Lasse Ken Berantzino
  * Student Number: 101326867
- * Date: 08/11/2020
+ * Date: 06/12/2020
  * Description: Configuration class that configures authentication for users of
  * the application and the requests that are allowed for authorized and
  * unauthorized users. Also creates beans for password encoding.

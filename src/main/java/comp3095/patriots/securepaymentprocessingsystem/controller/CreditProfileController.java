@@ -1,3 +1,12 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 06/12/2020
+ * Description: Controller class for credit profile page
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.CreditCard;

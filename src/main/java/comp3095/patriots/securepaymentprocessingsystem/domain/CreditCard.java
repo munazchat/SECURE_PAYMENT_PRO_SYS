@@ -1,3 +1,12 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 06/12/2020
+ * Description: Model and Enitity class for Credit cards
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,11 +1,11 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
- * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
- * Student Number: 101326867, 100956112, 101078278
- * Date: 08/11/2020
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 06/12/2020
  * Description: Implementation class for UserService. Handles the saving of clients,
- * authentication check and method for Spring Security to load a user
+ * authentication check and method for Spring Security to load a user transfer of messages etc
  **********************************************************************************/
 
 package comp3095.patriots.securepaymentprocessingsystem.service;
@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -159,6 +160,9 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username and/or password");
 		}
+		user.setLastLogin(new Date());
+		userRepository.save(user);
+
 		System.out.println("findByEmail username: " + user.getEmail());
 		return new org.springframework.security.core.userdetails.User(
 				user.getEmail(),

@@ -1,9 +1,9 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
- * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
- * Student Number: 101326867, 100956112, 101078278
- * Date: 08/11/2020
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 06/12/2020
  * Description: Controller class that manages endpoint for registration
  * redirects to dashboard if authenticated
  **********************************************************************************/

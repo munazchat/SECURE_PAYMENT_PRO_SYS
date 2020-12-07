@@ -1,14 +1,15 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
- * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
- * Student Number: 101326867, 100956112, 101078278
- * Date: 08/11/2020
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino, Munazum Rauf
+ * Student Number: 101326867, 100956112
+ * Date: 06/12/2020
  * Description: Controller class that manages endpoints for dashboard and future enhancement endpoints
  **********************************************************************************/
 
 package comp3095.patriots.securepaymentprocessingsystem.controller;
 
+import comp3095.patriots.securepaymentprocessingsystem.domain.Message;
 import comp3095.patriots.securepaymentprocessingsystem.domain.Profile;
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 import comp3095.patriots.securepaymentprocessingsystem.dto.UserDeletionDto;
@@ -29,9 +30,12 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String dashboard() {
+	public String dashboard(Model model) {
+		User authUser = userService.getAuthenticatedUser();
 
-		return "index";
+		model.addAttribute("user", authUser);
+
+		return "dashboard";
 	}
 
 	@GetMapping("/future")

@@ -1,3 +1,13 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 06/12/2020
+ * Description: Data Transfer Object used for holding User and Profile Objects
+ * when registering a User
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.dto;
 
 import comp3095.patriots.securepaymentprocessingsystem.domain.Profile;

@@ -1,9 +1,9 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
- * Author(s): Lasse Ken Berantzino, Munazum Rauf, Vivek Mathimakki
- * Student Number: 101326867, 100956112, 101078278
- * Date: 08/11/2020
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino, Munazum Rauf
+ * Student Number: 101326867, 100956112
+ * Date: 06/12/2020
  * Description: Class for the User domain annotated as a db entity
  * contains annotations for primary key and relationship with instructions of
  * join table generation
@@ -73,6 +73,51 @@ public class User {
 		this.password = password;
 		this.DOB = DOB;
 		this.profiles.add(profile);
+	}
+
+	public Map<String, Profile> getPrefAddresses() {
+		Map<String, Profile> addresses = new HashMap<>();
+
+		for (Profile p : profiles) {
+			if (p.isDefaultBilling()) {
+				addresses.put("prefBillingAddress", p);
+			}
+			if (p.isDefaultShipping()){
+				addresses.put("prefShippingAddress", p);
+			}
+		}
+		return addresses;
+	}
+
+	public int getAmountRead() {
+		int read = 0;
+
+		for (Message msg : messagesReceived) {
+			if (msg.isRead()) {
+				read++;
+			}
+		}
+		return read;
+	}
+
+	public int getAmountUnread() {
+		int unRead = 0;
+
+		for (Message msg : messagesReceived) {
+			if (!msg.isRead()) {
+				unRead++;
+			}
+		}
+		return unRead;
+	}
+
+	public Profile getCurrentProfile() {
+		for (Profile p : profiles) {
+			if (p.isCurrentProfile()) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 	public Long getId() {

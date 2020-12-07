@@ -1,9 +1,9 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
+ * Assignment: assignment 3
  * Author(s): Lasse Ken Berantzino
  * Student Number: 101326867
- * Date: 08/11/2020
+ * Date: 06/12/2020
  * Description: BootStrapData class that makes use of CommandLineRunner interface,
  * to add an admin user to the application
  **********************************************************************************/
@@ -17,7 +17,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -81,9 +80,9 @@ public class BootStrapData implements CommandLineRunner {
 
 		//admin profiles
 		Profile admin1Profile = new Profile(
-				"Jægerstræde 8", "Karlslunde", "Denmark", false, false, true);
+				"Jægerstræde 8", "Karlslunde", "Denmark", true, true, true);
 		Profile admin2Profile = new Profile(
-				"Rådhuspladsen 10", "Copenhagen", "Denmark", false, false, true);
+				"Rådhuspladsen 10", "Copenhagen", "Denmark", true, true, true);
 		admin1Profile.setUser(admin1);
 		admin2Profile.setUser(admin2);
 

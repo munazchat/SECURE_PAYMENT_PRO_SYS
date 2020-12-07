@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:include="fragments/navbar :: nav_navbar"></div>
+
+<br>
+
+<div class="container">
+    <div>
+        <h1 class="text-center">Inbox</h1>
+        <br />
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Recent Activity
+                    </div>
+                    <label for="lastLogin">Last Login Activity</label>
+                    <p id="lastLogin" th:text="${user.lastLogin}">Last Login Activity</p>
+                    <br />
+                    <label for="lastUpdate">Last User Profile Update</label>
+                    <p id="lastUpdate" th:text="${user.lastProfile}"></p>
+                    <br />
+                    <label for="unRead">Inbox</label>
+                    <p id="unRead" th:text="${'UnRead: ' + user.amountUnread}"></p>
+                    <p th:text="${'Read: ' + user.amountRead}"></p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Current Profile
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>First Name:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.email}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Last Name:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.lastName}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Email:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.email}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>D.O.B:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.DOB}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Address:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.currentProfile.address}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>City:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.currentProfile.city}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Country:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.currentProfile.country}"></p>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <br />
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <label>Preferred Billing Address</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Address:</label>
+                            </div>
+                            <div class="col-8">
+                                <p th:text="${user.prefAddresses.get('prefBillingAddress').address} ?: '(no content)'"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label>City:</label>
+                            </div>
+                            <div class="col-8">
+                                <p th:text="${user.prefAddresses.get('prefBillingAddress').city} ?: '(no content)'"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label>Country:</label>
+                            </div>
+                            <div class="col-8">
+                                <p th:text="${user.prefAddresses.get('prefBillingAddress').country} ?: '(no content)'"></p>
+                            </div>
+                        </div>
+                    <label>Preferred Shipping Address</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Address:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.prefAddresses.get('prefShippingAddress').address} ?: '(no content)'"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>City:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.prefAddresses.get('prefShippingAddress').city} ?: '(no content)'"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label>Country:</label>
+                        </div>
+                        <div class="col-8">
+                            <p th:text="${user.prefAddresses.get('prefShippingAddress').country} ?: '(no content)'"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+</body>
+</html>

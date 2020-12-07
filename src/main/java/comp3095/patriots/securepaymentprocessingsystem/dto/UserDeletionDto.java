@@ -1,6 +1,15 @@
+/********************************************************************************
+ * Project: secure-payment-processing-system
+ * Assignment: assignment 3
+ * Author(s): Lasse Ken Berantzino
+ * Student Number: 101326867
+ * Date: 06/12/2020
+ * Description: Data Transfer Object used for holding the list of Users to delete
+ * on users pages for admin roles
+ **********************************************************************************/
+
 package comp3095.patriots.securepaymentprocessingsystem.dto;
 
-import comp3095.patriots.securepaymentprocessingsystem.domain.Profile;
 import comp3095.patriots.securepaymentprocessingsystem.domain.User;
 
 import java.util.ArrayList;

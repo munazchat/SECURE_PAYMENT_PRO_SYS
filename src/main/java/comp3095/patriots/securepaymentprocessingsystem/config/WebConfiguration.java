@@ -1,9 +1,9 @@
 /********************************************************************************
  * Project: secure-payment-processing-system
- * Assignment: assignment 2
+ * Assignment: assignment 3
  * Author(s): Lasse Ken Berantzino
  * Student Number: 101326867
- * Date: 08/11/2020
+ * Date: 06/12/2020
  * Description: Configuration class to allow H2 console to work with Spring Security.
  * creates an url mapping for the console at /console instead of the usual /h2-console
  **********************************************************************************/
